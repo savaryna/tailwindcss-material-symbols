@@ -3,23 +3,16 @@ import { readFile } from 'fs/promises';
 
 export default defineConfig(({ watch }) => [
   {
-    entry: ['src/index.tsx'],
-    outDir: 'public',
-    platform: 'browser',
-  },
-  {
     entry: ['src/index.ts'],
     format: 'esm',
-    minify: true,
-    dts: false,
+    dts: true,
     clean: !watch,
   },
   {
     entry: ['src/index.ts'],
     format: 'cjs',
-    cjsInterop: true,
-    minify: true,
     dts: true,
+    cjsInterop: true,
     clean: !watch,
     esbuildPlugins: [
       {

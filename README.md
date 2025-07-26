@@ -103,7 +103,7 @@ Classes you can use with the default config:
 These can be animated using transitions.
 
 ```html
-<span class="icon transition-all hover:icon-700">star</span>
+<span class="icon hover:icon-700 transition-all">star</span>
 ```
 
 ### Choosing the fill

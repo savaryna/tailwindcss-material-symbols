@@ -1,6 +1,9 @@
+import typography from '@tailwindcss/typography';
+import materialSymbols from '@savaryna/tailwindcss-material-symbols';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['src/index.tsx'],
+export default {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   safelist: [
     {
       pattern: /.*icon.*/,
@@ -17,5 +20,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography'), require('./dist/index.js')],
+  plugins: [typography, materialSymbols],
 };

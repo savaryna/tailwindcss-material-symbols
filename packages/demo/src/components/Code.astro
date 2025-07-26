@@ -1,0 +1,24 @@
+---
+interface Props {
+  code: string;
+  mark?: string;
+}
+
+const { code, mark = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'not-prose relative w-full flex-grow rounded px-2 py-1 text-xs sm:text-sm',
+    mark ? 'bg-blue-50 text-blue-700' : 'bg-gray-50',
+  ]}
+>
+  <pre class="overflow-x-scroll">{code}</pre>
+  {
+    mark.length > 0 && (
+      <div class="pointer-events-none absolute right-0 top-0 bg-gradient-to-l from-gray-50 from-75% py-1 pl-8 pr-2">
+        {mark}
+      </div>
+    )
+  }
+</div>

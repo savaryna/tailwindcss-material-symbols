@@ -30,9 +30,11 @@
         "import": "./dist/index.d.ts",
         "require": "./dist/index.d.cts"
       },
+      "style": "./dist/index.css",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./css": "./dist/index.css"
   },
   "files": [
     "dist"
@@ -53,6 +55,6 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": ">=3.4.17"
   }
 }

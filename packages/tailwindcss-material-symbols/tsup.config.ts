@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup';
-import { readFile } from 'fs/promises';
+import { readFile, copyFile } from 'fs/promises';
 
 export default defineConfig(({ watch }) => [
   {
@@ -7,6 +7,10 @@ export default defineConfig(({ watch }) => [
     format: 'esm',
     dts: true,
     clean: !watch,
+    onSuccess: async () => {
+      await copyFile('src/index.css', 'dist/index.css');
+      console.log('CSS ⚡️ File copied');
+    },
   },
   {
     entry: ['src/index.ts'],

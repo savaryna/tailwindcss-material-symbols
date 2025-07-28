@@ -1,3 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@savaryna/tailwindcss-material-symbols';
+
+@plugin '@tailwindcss/typography';
+
+@source inline("{group-hover:,}icon-{outlined,rounded,sharp,{100..700..100},nofill,filled,dark,normal,emphasis,20,24,40,48}");
+
+@custom-variant dark (&:where(.dark, .dark *));

@@ -1,28 +1,36 @@
 # @savaryna/tailwindcss-material-symbols
 
-🌀 A simple tailwindcss plugin to ease work with Google's [Material Symbols](https://fonts.google.com/icons) icons.
+🌀 A Tailwind CSS plugin that simplifies working with Google's [Material Symbols](https://fonts.google.com/icons) font by providing `icon` utility classes for easy icon integration and styling.
 
-## Live demo
+```html
+<span class="icon icon-rounded icon-48">star</span>
+```
 
-See [live demo](https://savaryna.github.io/tailwindcss-material-symbols/index.html) on how the plugin works.
+Go to the [demo](https://savaryna.github.io/tailwindcss-material-symbols/index.html) page to see the plugin at work.
 
 ## Installation
 
-Install the plugin using `npm`
-
-```shell
-npm i -D @savaryna/tailwindcss-material-symbols
-```
-
-or `pnpm`, etc.
+Install the plugin using your favorite package manager:
 
 ```shell
 pnpm add -D @savaryna/tailwindcss-material-symbols
 ```
 
-Add the plugin to your `tailwind.config.js` file.
+Then import the plugin in your main `.css` file:
 
-```js {{ filename: 'tailwind.config.js' }}
+> [!IMPORTANT]
+> Do not use the `@plugin` directive. That is meant for legacy JavaScript-based plugins. This is a CSS first plugin, written with native support for **Tailwind CSS v4**.
+
+```css
+@import 'tailwindcss';
+@import '@savaryna/tailwindcss-material-symbols';
+/* Alternatively you can also use: */
+/* @import '@savaryna/tailwindcss-material-symbols/css'; */
+```
+
+If you are using **Tailwind CSS v3**, add the plugin to your `tailwind.config.js` file instead:
+
+```js
 import materialSymbols from '@savaryna/tailwindcss-material-symbols';
 
 /** @type {import('tailwindcss').Config} */
@@ -34,7 +42,7 @@ export default {
 
 Or use `require('@savaryna/tailwindcss-material-symbols')` with `module.exports` for CommonJS modules.
 
-Next, follow Google's [guide](https://developers.google.com/fonts/docs/material_symbols#using_material_symbols) on how to add Material Symbols font to your page. For example you could just add a `link` tag to your html `head`.
+Next, follow Google's [guide](https://developers.google.com/fonts/docs/material_symbols#using_material_symbols) on how to add the Material Symbols font to your page. For testing you could just add this `link` tag to your html `head`:
 
 ```html
 <head>
@@ -51,7 +59,7 @@ Next, follow Google's [guide](https://developers.google.com/fonts/docs/material_
 Now you can use the base class `icon` to style elements as Material Symbols.
 
 > [!TIP]
-> The base class can be changed by passing a `baseClass` option to the plugin. In that case use your custom base class instead of `icon`. See [changing the default base class](#changing-the-default-base-class) for more information.
+> For **Tailwind CSS v3**, the base class can be changed by passing a `baseClass` option to the plugin. In that case use your custom base class instead of `icon`. See [changing the default base class](#changing-the-default-base-class) for more information.
 
 ```html
 <span class="icon">star</span>
@@ -59,7 +67,7 @@ Now you can use the base class `icon` to style elements as Material Symbols.
 
 ### Choosing the font
 
-The plugin includes a modifier class for each Material Symbols font family, so you can easily choose what symbol style to use.
+The plugin includes a modifier class for each Material Symbols font family, so you can easily choose what icon style to use.
 
 > [!IMPORTANT]
 > All modifier classes need to be used together with the base class. Always include the base class when using a modifier class.
@@ -82,7 +90,7 @@ Classes you can use with the default config:
 
 ### Choosing the weight
 
-Weight modifiers allow you to adjust the weight of the symbols stroke. Read more [here](https://developers.google.com/fonts/docs/material_symbols#wght_axis).
+Weight modifiers allow you to adjust the weight of the icon's stroke. Read more [here](https://developers.google.com/fonts/docs/material_symbols#wght_axis).
 
 ```html
 <span class="icon icon-700">star</span>
@@ -108,7 +116,7 @@ These can be animated using transitions.
 
 ### Choosing the fill
 
-Fill modifiers allow you to choose if your symbol is filled or not. Read more [here](https://developers.google.com/fonts/docs/material_symbols#fill_axis).
+Fill modifiers allow you to choose if your icon is filled or not. Read more [here](https://developers.google.com/fonts/docs/material_symbols#fill_axis).
 
 Classes you can use with the default config:
 
@@ -128,7 +136,7 @@ These can be animated using transitions.
 
 ### Choosing the grade
 
-Grade modifiers allow you to choose the weight of the symbols in a more granular way. A lower value is recommended to be used on darker backgrounds. Read more [here](https://developers.google.com/fonts/docs/material_symbols#grad_axis).
+Grade modifiers allow you to choose the weight of the icons in a more granular way. A lower value is recommended to be used on darker backgrounds. Read more [here](https://developers.google.com/fonts/docs/material_symbols#grad_axis).
 
 Classes you can use with the default config:
 
@@ -142,7 +150,7 @@ These can be animated using transitions.
 
 ### Choosing the optical size
 
-Optical size modifiers allow you to choose the size of the symbols. In addition to changing the symbol size this also changes the stroke weight as the symbol scales. Read more [here](https://developers.google.com/fonts/docs/material_symbols#opsz_axis).
+Optical size modifiers allow you to choose the size of the icons. In addition to changing the icon size this also changes the stroke weight as the icon scales. Read more [here](https://developers.google.com/fonts/docs/material_symbols#opsz_axis).
 
 Classes you can use with the default config:
 
@@ -169,7 +177,7 @@ You can use the plugin with Tailwind CSS [pseudo elements](https://tailwindcss.c
 
 ## Animating font properties
 
-You can use Tailwind CSS classes to animate the font properties. You can animate the weight, fill, grade, optical size and other element features. Read more about using [transitions](https://tailwindcss.com/docs/transition-property) and [animations](https://tailwindcss.com/docs/animation) in the tailwindcss documentation. You can also find more information on Google's [developer guide](https://developers.google.com/fonts/docs/material_symbols) for Material Symbols.
+You can use Tailwind CSS classes to animate the font properties. You can animate the weight, fill, grade, optical size and other element features. Read more about using [transitions](https://tailwindcss.com/docs/transition-property) and [animations](https://tailwindcss.com/docs/animation) in the Tailwind CSS documentation. You can also find more information on Google's [developer guide](https://developers.google.com/fonts/docs/material_symbols) for Material Symbols.
 
 | Here are a few examples:                                     |
 | ------------------------------------------------------------ |
@@ -182,6 +190,9 @@ You can use Tailwind CSS classes to animate the font properties. You can animate
 ### Changing the default base class
 
 If you want to use a base class other than `icon`, you can do so using the `baseClass` option when registering the plugin:
+
+> [!NOTE]
+> This feature is only available when using the plugin with **Tailwind CSS v3**.
 
 ```js {{ filename: 'tailwind.config.js' }}
 import materialSymbols from '@savaryna/tailwindcss-material-symbols';
@@ -205,9 +216,18 @@ Now you can use your custom `symbol` base class where you'd use the default base
 
 ### Changing the default styles and classes
 
-If you want to customize what modifier classes and values get generated, or change the `DEFAULT`'s you can also extend or override the `materialSymbols` key in your theme config.
+If you want to customize what modifier classes and values get generated, or change the defaults you can use the `@theme` directive to define new theme variables and extend the [default theme](https://github.com/savaryna/tailwindcss-material-symbols/blob/main/packages/tailwindcss-material-symbols/src/index.css#L1-L30). Read more [here](https://tailwindcss.com/docs/theme#customizing-your-theme).
 
-```js {{ filename: 'tailwind.config.js' }}
+```css
+@theme {
+  --ms-default-weight: var(--ms-weight-700);
+  --ms-optical-size-sm: var(--ms-optical-size-20);
+}
+```
+
+If you are using **Tailwind CSS v3**, use the `theme` key in your `tailwind.config.js` file instead:
+
+```js
 import materialSymbols from '@savaryna/tailwindcss-material-symbols';
 
 /** @type {import('tailwindcss').Config} */
@@ -227,6 +247,13 @@ export default {
   },
   plugins: [materialSymbols],
 };
+```
+
+This will set the default weight to `700` and add a new utility class `icon-sm` that can be used to set the optical size to the given value.
+
+```html
+<!-- An icon with a stroke weight of 700 and 20px optical size -->
+<span class="icon icon-sm">star</span>
 ```
 
 [Discuss the Tailwind CSS Material Symbols plugin on GitHub](https://github.com/savaryna/tailwindcss-material-symbols/discussions)

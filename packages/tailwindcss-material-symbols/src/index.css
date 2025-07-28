@@ -1,0 +1,60 @@
+@theme {
+  --ms-font-outlined: 'Material Symbols Outlined';
+  --ms-font-rounded: 'Material Symbols Rounded';
+  --ms-font-sharp: 'Material Symbols Sharp';
+  --default-ms-font: var(--ms-font-outlined, 'Material Symbols Outlined');
+
+  --ms-weight-100: 100;
+  --ms-weight-200: 200;
+  --ms-weight-300: 300;
+  --ms-weight-400: 400;
+  --ms-weight-500: 500;
+  --ms-weight-600: 600;
+  --ms-weight-700: 700;
+  --default-ms-weight: var(--ms-weight-400, 400);
+
+  --ms-fill-nofill: 0;
+  --ms-fill-filled: 1;
+  --default-ms-fill: var(--ms-fill-nofill, 0);
+
+  --ms-grade-dark: -25;
+  --ms-grade-normal: 0;
+  --ms-grade-emphasis: 200;
+  --default-ms-grade: var(--ms-grade-normal, 0);
+
+  --ms-optical-size-20: 20;
+  --ms-optical-size-24: 24;
+  --ms-optical-size-40: 40;
+  --ms-optical-size-48: 48;
+  --default-ms-optical-size: var(--ms-optical-size-24, 24);
+}
+
+@utility icon {
+  font-family: var(--ms-font, var(--default-ms-font)), var(--default-ms-font);
+  font-weight: var(--ms-weight, var(--default-ms-weight));
+  font-style: normal;
+  font-size: calc(var(--ms-optical-size, var(--default-ms-optical-size)) * 1px);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: liga;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    'wght' var(--ms-weight, var(--default-ms-weight)),
+    'FILL' var(--ms-fill, var(--default-ms-fill)),
+    'GRAD' var(--ms-grade, var(--default-ms-grade)),
+    'opsz' var(--ms-optical-size, var(--default-ms-optical-size));
+}
+
+@utility icon-* {
+  --ms-font: --value(--ms-font-*);
+  --ms-weight: --value(--ms-weight-*);
+  --ms-fill: --value(--ms-fill-*);
+  --ms-grade: --value(--ms-grade-*);
+  --ms-optical-size: --value(--ms-optical-size-*);
+}

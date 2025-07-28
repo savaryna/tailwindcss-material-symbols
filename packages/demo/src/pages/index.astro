@@ -1,20 +1,17 @@
 ---
-import '@styles/global.css';
+import Button from '@components/Button.astro';
 import Code from '@components/Code.astro';
 import Icon from '@components/Icon.astro';
+import ThemeSelect from '@components/ThemeSelect.astro';
+import Layout from '@layouts/Layout.astro';
 
 // Internal
-import {
-  name,
-  description,
-  version,
-  homepage,
-  repository,
-} from '@plugin/package.json';
+import { repository } from '@plugin/package.json';
 import config from '@plugin/src/config';
-///////////
 
 const repositoryHome = repository.url.replace('git+', '').replace('.git', '');
+///////////
+
 const camelCaseToWords = (str: string) =>
   str
     .replace(/([A-Z])/g, ' $1')
@@ -22,183 +19,113 @@ const camelCaseToWords = (str: string) =>
     .toLowerCase();
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href={'https://fonts.googleapis.com/css2?' +
-        'family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200' +
-        '&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200' +
-        '&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'}
-    />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>TailwindCSS Material Symbols Demo</title>
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={homepage} />
-    <meta property="og:title" content="TailwindCSS Material Symbols Demo" />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/og.png" />
-  </head>
-  <body>
-    <main class="prose mx-auto px-4 py-12">
-      <h1
-        class="bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent"
-      >
-        <span set:html={name.replace('/', '/<br>')} />
-        <sup
-          class="-top-3 ml-2 rounded bg-blue-50 p-1 font-mono text-xs text-blue-900"
-        >
-          v{version}
-        </sup>
-      </h1>
-      <p>{description}</p>
-      <div
-        class="flex flex-col flex-wrap items-start gap-x-6 gap-y-3 sm:flex-row sm:items-center"
-      >
-        <a
-          class="not-prose before:icon before:icon-rounded inline-flex items-center gap-2 rounded border bg-gray-100 py-1 pl-2 pr-3 transition-colors before:block before:origin-center before:transition-all before:content-['star'] hover:border-blue-100 hover:bg-blue-50 hover:text-blue-700 hover:before:-rotate-12 hover:before:scale-110 focus:bg-gray-200"
-          href={repositoryHome}
-          target="_blank"
-        >
-          Star it on GitHub
-        </a>
-        <a
-          href="https://www.npmjs.com/package/@savaryna/tailwindcss-material-symbols"
-          target="_blank"
-        >
-          NPM
-        </a>
-        <a href="https://tailwindcss.com" target="_blank"> Tailwind CSS </a>
-        <a href="https://fonts.google.com/icons" target="_blank">
-          Material Symbols
-        </a>
-      </div>
-      <hr />
-      <h2>Installation</h2>
-      <p>
-        <span>Learn how to install and use the plugin on the </span>
-        <a
-          href={`${repositoryHome}?tab=readme-ov-file#installation`}
-          target="_blank">GithHub</a
-        >
-        <span> page.</span>
-      </p>
-      <h2>Basic usage</h2>
-      {
-        Object.entries(config.theme.materialSymbols).map(
-          ([property, value]) => {
-            const modifiers = Object.keys(value).filter((m) => m != 'DEFAULT');
+<Layout>
+  <h2>Installation</h2>
+  <p>
+    <span>Learn how to install and use the plugin on the </span>
+    <a
+      href={`${repositoryHome}?tab=readme-ov-file#installation`}
+      target="_blank">GithHub</a
+    >
+    <span> page.</span>
+  </p>
+  <h2>Basic usage</h2>
+  {
+    Object.entries(config.theme.materialSymbols).map(([property, value]) => {
+      const modifiers = Object.keys(value).filter((m) => m != 'DEFAULT');
 
-            return (
+      return (
+        <Fragment>
+          <h3>Choosing the {camelCaseToWords(property)}</h3>
+          <div class="grid grid-cols-[minmax(0,1fr)_4rem] items-center gap-3">
+            {modifiers.map((modifier) => (
               <Fragment>
-                <h3>Choosing the {camelCaseToWords(property)}</h3>
-                <div class="grid grid-cols-[minmax(0,1fr)_4rem] items-center gap-3">
-                  {modifiers.map((modifier) => (
-                    <Fragment>
-                      <div class="not-prose flex items-center gap-2 text-xs sm:text-sm">
-                        <Code
-                          code={`<span class="icon icon-${modifier}">star</span>`}
-                          mark={
-                            value[modifier] === value.DEFAULT && '(default)'
-                          }
-                        />
-                      </div>
-                      <Icon
-                        classes={`justify-self-center icon-${modifier}`}
-                        name="star"
-                      />
-                    </Fragment>
-                  ))}
-                </div>
-              </Fragment>
-            );
-          },
-        )
-      }
-      <h3>With pseudo elements</h3>
-      <p>
-        You can use the plugin with Tailwind CSS&nbsp;
-        <a
-          href="https://tailwindcss.com/docs/hover-focus-and-other-states#pseudo-elements"
-          target="_blank"
-        >
-          pseudo elements
-        </a>
-        &nbsp;to add icons using css content.
-      </p>
-      <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-        <Code
-          code={`<label class="after:icon after:content-['arrow\\_drop\\_down'] after:absolute after:right-2 ...">\n\t<select class="...">\n\t\t...\n\t</select>\n</label>`}
-        />
-        <div
-          class:list={[
-            'after:icon group relative flex items-center after:pointer-events-none after:absolute after:right-2',
-            String.raw`after:content-["arrow\_drop\_down"]`,
-          ]}
-        >
-          <select
-            class="appearance-none rounded bg-gray-100 py-2 pl-4 pr-10 transition-colors group-hover:bg-gray-200"
-          >
-            {[1, 2, 3, 4].map((o) => <option value={o}>Option {o}</option>)}
-          </select>
-        </div>
-      </div>
-      <h2>Animating font properties</h2>
-      <p>
-        You can use Tailwind CSS classes to animate the font properties. You can
-        animate the weight, fill, grade, optical size and other element
-        features. Read more about using&nbsp;
-        <a
-          href="https://tailwindcss.com/docs/transition-property"
-          target="_blank"
-        >
-          transitions
-        </a>
-        &nbsp;and&nbsp;
-        <a href="https://tailwindcss.com/docs/animation" target="_blank">
-          animations
-        </a>
-        &nbsp;in the tailwindcss documentation. You can also find more information
-        on Google&apos;s&nbsp;
-        <a
-          href="https://developers.google.com/fonts/docs/material_symbols"
-          target="_blank"
-        >
-          developer guide
-        </a>
-        &nbsp;for Material Symbols.
-      </p>
-      <p>Here are a few examples:</p>
-      <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-        {
-          Object.entries(config.theme.materialSymbols)
-            .filter(([property]) => !['font', 'opticalSize'].includes(property))
-            .map(([, value]) => {
-              const lastModifier = Object.keys(value)
-                .filter((m) => m != 'DEFAULT')
-                .pop();
-
-              return (
-                <Fragment>
+                <div class="not-prose flex items-center gap-2 text-xs sm:text-sm">
                   <Code
-                    code={`icon-rounded transition-all group-hover:icon-${lastModifier}`}
+                    code={`<span class="icon icon-${modifier}">star</span>`}
+                    mark={
+                      (value as any)[modifier] === value.DEFAULT
+                        ? '(default)'
+                        : ''
+                    }
                   />
-                  <button class="group flex items-center gap-2 justify-self-center rounded bg-gray-100 px-4 py-2 transition-all hover:bg-gray-200">
-                    <span>Hover me</span>
-                    <Icon
-                      name="star"
-                      classes={`icon-rounded transition-all group-hover:icon-${lastModifier}`}
-                    />
-                  </button>
-                </Fragment>
-              );
-            })
-        }
-      </div>
-    </main>
-  </body>
-</html>
+                </div>
+                <Icon
+                  class={`justify-self-center icon-${modifier}`}
+                  name="star"
+                />
+              </Fragment>
+            ))}
+          </div>
+        </Fragment>
+      );
+    })
+  }
+  <h3>With pseudo elements</h3>
+  <p>
+    You can use the plugin with Tailwind CSS&nbsp;
+    <a
+      href="https://tailwindcss.com/docs/hover-focus-and-other-states#pseudo-elements"
+      target="_blank"
+    >
+      pseudo elements
+    </a>
+    &nbsp;to add icons using css content.
+  </p>
+  <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+    <Code
+      code={`<div class="...before:icon before:absolute before:content-["routine"]">\n\t<select class="...">\n\t\t...\n\t</select>\n</div>`}
+    />
+    <ThemeSelect />
+  </div>
+  <h2>Animating font properties</h2>
+  <p>
+    You can use Tailwind CSS classes to animate the font properties. You can
+    animate the weight, fill, grade, optical size and other element features.
+    Read more about using&nbsp;
+    <a href="https://tailwindcss.com/docs/transition-property" target="_blank">
+      transitions
+    </a>
+    &nbsp;and&nbsp;
+    <a href="https://tailwindcss.com/docs/animation" target="_blank">
+      animations
+    </a>
+    &nbsp;in the tailwindcss documentation. You can also find more information on
+    Google&apos;s&nbsp;
+    <a
+      href="https://developers.google.com/fonts/docs/material_symbols"
+      target="_blank"
+    >
+      developer guide
+    </a>
+    &nbsp;for Material Symbols.
+  </p>
+  <p>Here are a few examples:</p>
+  <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+    {
+      Object.entries(config.theme.materialSymbols)
+        .filter(([property]) => !['font', 'opticalSize'].includes(property))
+        .map(([, value]) => {
+          const lastModifier = Object.keys(value)
+            .filter((m) => m != 'DEFAULT')
+            .pop();
+
+          return (
+            <Fragment>
+              <Code
+                code={`icon icon-rounded group-hover:icon-${lastModifier} transition-all duration-100`}
+              />
+              <Button>
+                <Icon
+                  slot="icon"
+                  name="star"
+                  class={`icon-rounded group-hover:icon-${lastModifier} transition-all duration-100`}
+                />
+                Hover me
+              </Button>
+            </Fragment>
+          );
+        })
+    }
+  </div>
+</Layout>

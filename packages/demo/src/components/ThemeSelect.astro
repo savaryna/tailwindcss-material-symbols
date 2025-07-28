@@ -1,0 +1,62 @@
+---
+import Icon from './Icon.astro';
+
+const themes = ['system', 'light', 'dark'];
+---
+
+<div
+  class:list={[
+    'not-prose group relative inline-flex items-center gap-2 rounded border transition-all duration-150',
+    'border-gray-200 bg-gray-100',
+    'hover:border-blue-100 hover:bg-blue-50 hover:text-blue-700',
+    'dark:border-gray-800 dark:bg-gray-900',
+    'dark:hover:border-blue-100 dark:hover:bg-blue-50',
+    'before:icon dark:before:icon-dark before:pointer-events-none before:absolute before:left-2 before:content-["routine"]',
+  ]}
+>
+  <select
+    id="themeSelect"
+    class="appearance-none bg-transparent py-1 pl-10 pr-7 capitalize"
+  >
+    {themes.map((theme) => <option value={theme}>{theme}</option>)}
+  </select>
+  <Icon
+    name="arrow_drop_down"
+    class="icon-20 pointer-events-none absolute right-1"
+  />
+</div>
+
+<script is:inline>
+  const themeSelect = document.getElementById('themeSelect');
+  const savedTheme = () => localStorage.getItem('theme') || 'system';
+
+  applyTheme(savedTheme());
+
+  function getSystemTheme() {
+    return matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light'
+      : 'dark';
+  }
+
+  function applyTheme(theme) {
+    const resolvedTheme = theme === 'system' ? getSystemTheme() : theme;
+
+    document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+    document.documentElement.style = `color-scheme: ${resolvedTheme}`;
+
+    localStorage.setItem('theme', theme);
+    if (themeSelect) {
+      themeSelect.value = theme;
+    }
+  }
+
+  matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+    if (savedTheme() === 'system') {
+      applyTheme('system');
+    }
+  });
+
+  themeSelect?.addEventListener('change', (e) => {
+    applyTheme(e.target.value.toLowerCase());
+  });
+</script>

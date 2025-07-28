@@ -4,7 +4,7 @@
   "name": "@savaryna/tailwindcss-material-symbols-demo",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "clean": "rm -rf dist .astro",
     "check": "astro check",
     "preview": "astro preview --host",

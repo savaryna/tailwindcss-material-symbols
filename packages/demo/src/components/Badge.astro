@@ -1,0 +1,13 @@
+---
+type Props = { children: any };
+---
+
+<span
+  class:list={[
+    'relative -top-3 ml-2 rounded p-1 font-mono text-xs font-semibold',
+    'bg-blue-50 text-blue-900',
+    'dark:bg-gray-800 dark:text-blue-50',
+  ]}
+>
+  <slot />
+</span>

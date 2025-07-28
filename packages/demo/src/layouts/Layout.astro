@@ -1,0 +1,91 @@
+---
+import '@styles/global.css';
+
+import Badge from '@components/Badge.astro';
+import Button from '@components/Button.astro';
+import Icon from '@components/Icon.astro';
+
+// Internal
+import {
+  name,
+  description,
+  version,
+  homepage,
+  repository,
+} from '@plugin/package.json';
+
+const repositoryHome = repository.url.replace('git+', '').replace('.git', '');
+///////////
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href={'https://fonts.googleapis.com/css2' +
+        '?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200' +
+        '&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0..1,-50..200' +
+        '&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,-25..0' +
+        '&icon_names=arrow_drop_down,routine,star' +
+        '&display=block'}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{name}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={homepage} />
+    <meta property="og:title" content={name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/og.png" />
+  </head>
+  <body
+    class="prose dark:prose-invert mx-auto bg-white px-4 py-12 dark:bg-gray-950"
+  >
+    <header>
+      <h1
+        class="bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent"
+      >
+        <span set:html={name.replace('/', '/<br>')} />
+        <Badge>v{version}</Badge>
+      </h1>
+      <p>{description}</p>
+      <div
+        class="flex flex-col flex-wrap items-start gap-x-6 gap-y-3 sm:flex-row sm:items-center"
+      >
+        <Button as="a" href={repositoryHome} target="_blank">
+          <Icon
+            slot="icon"
+            name="star"
+            class="icon-rounded origin-center transition-transform duration-100 group-hover:-rotate-12 group-hover:scale-110"
+          />
+          Star it on GitHub
+        </Button>
+        <a
+          href="https://www.npmjs.com/package/@savaryna/tailwindcss-material-symbols"
+          target="_blank"
+        >
+          NPM
+        </a>
+        <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a>
+        <a href="https://fonts.google.com/icons" target="_blank">
+          Material Symbols
+        </a>
+      </div>
+      <hr />
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <hr />
+      <small>
+        MIT &copy;
+        <a href="https://github.com/savaryna" target="_blank">Alex Tofan</a>
+      </small>
+    </footer>
+  </body>
+</html>

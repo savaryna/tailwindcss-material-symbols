@@ -1,0 +1,21 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag; children: any }>;
+
+const { as: Tag = 'button', ...props } = Astro.props;
+---
+
+<Tag
+  {...props}
+  class:list={[
+    'not-prose group inline-flex items-center gap-2 rounded border py-1 pl-2 pr-3 transition-all duration-150',
+    'border-gray-200 bg-gray-100',
+    'hover:border-blue-100 hover:bg-blue-50 hover:text-blue-700',
+    'dark:border-gray-800 dark:bg-gray-900',
+    'dark:hover:border-blue-100 dark:hover:bg-blue-50',
+  ]}
+>
+  <slot name="icon" />
+  <slot />
+</Tag>

@@ -11,16 +11,16 @@ const filterDefaultKey = <T extends Record<string, any>>(obj: T) =>
   ) as Omit<T, 'DEFAULT'>;
 
 export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
-  ({ theme, e, addComponents, matchUtilities }) => {
+  ({ theme, e, addUtilities, matchUtilities }) => {
     const escapedBaseClass = e(baseClass);
     const materialSymbols = theme('materialSymbols') as MaterialSymbols;
 
-    addComponents({
+    addUtilities({
       [`.${escapedBaseClass}`]: {
-        fontFamily: materialSymbols.font.DEFAULT,
-        'font-weight': materialSymbols.weight.DEFAULT,
+        'font-family': `var(--ms-font, ${materialSymbols.font.DEFAULT}), ${materialSymbols.font.DEFAULT}`,
+        'font-weight': `var(--ms-weight, ${materialSymbols.weight.DEFAULT})`,
         'font-style': 'normal',
-        'font-size': `${materialSymbols.opticalSize.DEFAULT}px`,
+        'font-size': `calc(var(--ms-optical-size, ${materialSymbols.opticalSize.DEFAULT})  * 1px)`,
         'line-height': '1',
         'letter-spacing': 'normal',
         'text-transform': 'none',
@@ -28,13 +28,14 @@ export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
         'white-space': 'nowrap',
         'word-wrap': 'normal',
         direction: 'ltr',
+        'text-rendering': 'optimizeLegibility',
         '-webkit-font-feature-settings': 'liga',
         '-webkit-font-smoothing': 'antialiased',
         'font-variation-settings': `
-          "wght" var(--weight, ${materialSymbols.weight.DEFAULT}),
-          "FILL" var(--fill, ${materialSymbols.fill.DEFAULT}),
-          "GRAD" var(--grade, ${materialSymbols.grade.DEFAULT}),
-          "opsz" var(--opticalSize, ${materialSymbols.opticalSize.DEFAULT})
+          "wght" var(--ms-weight, ${materialSymbols.weight.DEFAULT}),
+          "FILL" var(--ms-fill, ${materialSymbols.fill.DEFAULT}),
+          "GRAD" var(--ms-grade, ${materialSymbols.grade.DEFAULT}),
+          "opsz" var(--ms-optical-size, ${materialSymbols.opticalSize.DEFAULT})
         `,
       },
     });
@@ -42,7 +43,7 @@ export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
     matchUtilities(
       {
         [escapedBaseClass]: (value) => ({
-          fontFamily: value,
+          '--ms-font': value,
         }),
       },
       { values: filterDefaultKey(materialSymbols.font) },
@@ -51,7 +52,7 @@ export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
     matchUtilities(
       {
         [escapedBaseClass]: (value) => ({
-          '--weight': value,
+          '--ms-weight': value,
         }),
       },
       { values: filterDefaultKey(materialSymbols.weight) },
@@ -60,7 +61,7 @@ export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
     matchUtilities(
       {
         [escapedBaseClass]: (value) => ({
-          '--fill': value,
+          '--ms-fill': value,
         }),
       },
       { values: filterDefaultKey(materialSymbols.fill) },
@@ -69,7 +70,7 @@ export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
     matchUtilities(
       {
         [escapedBaseClass]: (value) => ({
-          '--grade': value,
+          '--ms-grade': value,
         }),
       },
       { values: filterDefaultKey(materialSymbols.grade) },
@@ -78,8 +79,7 @@ export default ({ baseClass = 'icon' }: Options = {}): PluginCreator =>
     matchUtilities(
       {
         [escapedBaseClass]: (value) => ({
-          fontSize: `${value}px`,
-          '--opticalSize': value,
+          '--ms-optical-size': value,
         }),
       },
       { values: filterDefaultKey(materialSymbols.opticalSize) },

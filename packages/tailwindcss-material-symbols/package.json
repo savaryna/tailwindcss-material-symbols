@@ -4,7 +4,7 @@
   "version": "1.2.0",
   "license": "MIT",
   "author": "Alex Tofan",
-  "description": "🌀 A simple tailwindcss plugin to ease work with Google's Material Symbols font.",
+  "description": "🌀 A Tailwind CSS plugin that simplifies working with Google's Material Symbols font by providing `icon` utility classes for easy icon integration and styling.",
   "homepage": "https://savaryna.github.io/tailwindcss-material-symbols/",
   "bugs": {
     "url": "https://github.com/savaryna/tailwindcss-material-symbols/issues"

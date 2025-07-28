@@ -22,23 +22,23 @@ pnpm add -D @savaryna/tailwindcss-material-symbols
 
 Add the plugin to your `tailwind.config.js` file.
 
-```js
+```js {{ filename: 'tailwind.config.js' }}
+import materialSymbols from '@savaryna/tailwindcss-material-symbols';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  theme: {
-    // ...
-  },
-  plugins: [
-    require('@savaryna/tailwindcss-material-symbols'),
-    // ...
-  ],
+export default {
+  // Rest of the code...
+  plugins: [materialSymbols],
 };
 ```
 
-Follow Google's [guide](https://developers.google.com/fonts/docs/material_symbols#using_material_symbols) on how to add Material Symbols to your page. For example you could just add a `link` tag to your pages `head`.
+Or use `require('@savaryna/tailwindcss-material-symbols')` with `module.exports` for CommonJS modules.
+
+Next, follow Google's [guide](https://developers.google.com/fonts/docs/material_symbols#using_material_symbols) on how to add Material Symbols font to your page. For example you could just add a `link` tag to your html `head`.
 
 ```html
 <head>
+  <!-- Rest of the code... -->
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -160,24 +160,22 @@ These can be animated using transitions.
 You can use the plugin with Tailwind CSS [pseudo elements](https://tailwindcss.com/docs/hover-focus-and-other-states#pseudo-elements) to add icons using css content.
 
 ```html
-<label
-  className="after:icon after:content-['arrow\_drop\_down'] after:absolute after:right-2 ..."
->
-  <select className="...">
+<div class="before:icon before:absolute before:content-['routine'] ...">
+  <select class="...">
     ...
   </select>
-</label>
+</div>
 ```
 
 ## Animating font properties
 
 You can use Tailwind CSS classes to animate the font properties. You can animate the weight, fill, grade, optical size and other element features. Read more about using [transitions](https://tailwindcss.com/docs/transition-property) and [animations](https://tailwindcss.com/docs/animation) in the tailwindcss documentation. You can also find more information on Google's [developer guide](https://developers.google.com/fonts/docs/material_symbols) for Material Symbols.
 
-| Here are a few examples:                        |
-| ----------------------------------------------- |
-| `transition-all icon group-hover:icon-700`      |
-| `transition-all icon group-hover:icon-filled`   |
-| `transition-all icon group-hover:icon-emphasis` |
+| Here are a few examples:                                     |
+| ------------------------------------------------------------ |
+| `icon icon-rounded group-hover:icon-700 transition-all`      |
+| `icon icon-rounded group-hover:icon-filled transition-all`   |
+| `icon icon-rounded group-hover:icon-emphasis transition-all` |
 
 ## Customizing the plugin
 
@@ -186,18 +184,17 @@ You can use Tailwind CSS classes to animate the font properties. You can animate
 If you want to use a base class other than `icon`, you can do so using the `baseClass` option when registering the plugin:
 
 ```js {{ filename: 'tailwind.config.js' }}
+import materialSymbols from '@savaryna/tailwindcss-material-symbols';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  theme: {
-    // ...
-  },
+export default {
+  // Rest of the code...
   plugins: [
-    require('@savaryna/tailwindcss-material-symbols')({
+    materialSymbols({
       baseClass: 'symbol',
     }),
-  ]
-  ...
-}
+  ],
+};
 ```
 
 Now you can use your custom `symbol` base class where you'd use the default base class:
@@ -211,24 +208,29 @@ Now you can use your custom `symbol` base class where you'd use the default base
 If you want to customize what modifier classes and values get generated, or change the `DEFAULT`'s you can also extend or override the `materialSymbols` key in your theme config.
 
 ```js {{ filename: 'tailwind.config.js' }}
+import materialSymbols from '@savaryna/tailwindcss-material-symbols';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
+  // Rest of the code...
   theme: {
-    materialSymbols: {
-      weight: {
-        DEFAULT: '700',
+    extend: {
+      materialSymbols: {
+        weight: {
+          DEFAULT: '700',
+        },
+        opticalSize: {
+          sm: '20',
+        },
       },
-      opticalSize: {
-        sm: '20',
-      },
-      ...
-    }
+    },
   },
-  plugins: [
-    require('@savaryna/tailwindcss-material-symbols'),
-  ]
-  ...
-}
+  plugins: [materialSymbols],
+};
 ```
 
 [Discuss the Tailwind CSS Material Symbols plugin on GitHub](https://github.com/savaryna/tailwindcss-material-symbols/discussions)
+
+## License
+
+[MIT](LICENSE) &copy; [Alex Tofan](https://github.com/savaryna)

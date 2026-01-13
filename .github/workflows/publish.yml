@@ -1,14 +1,16 @@
-name: Publish Package
+name: Publish package
 
 on:
   release:
     types: [published]
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,12 +18,10 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
+          node-version: 24
+          registry-url: https://registry.npmjs.org
           scope: '@savaryna'
           cache: 'pnpm'
       - run: pnpm install
       - run: pnpm build:plugin
       - run: pnpm publish:plugin
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
